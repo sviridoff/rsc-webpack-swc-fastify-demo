@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist",
+    "declarationDir": "dist/types",
+    "module": "Node16",
+    "target": "ES2022",
+    "moduleResolution": "Node16",
+    "esModuleInterop": true,
+    "declaration": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": true,
+    "types": [
+      "node"
+    ],
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "jsx": "react-jsx",
+    "assumeChangesOnlyAffectDirectDependencies": true
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.json"
+  ],
+  "exclude": [
+    "**/__tests__",
+    "dist"
+  ],
+}

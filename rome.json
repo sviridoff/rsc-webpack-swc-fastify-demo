@@ -1,0 +1,26 @@
+{
+  "formatter": {
+    "indentStyle": "space",
+    "indentSize": 2,
+    "lineWidth": 60
+  },
+  "organizeImports": {
+    "enabled": true
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single",
+      "trailingComma": "all",
+      "quoteProperties": "asNeeded",
+      "semicolons": "always"
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "suspicious": {
+        "noExplicitAny": "off"
+      }
+    }
+  }
+}
