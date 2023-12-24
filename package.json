@@ -1,24 +1,23 @@
 {
   "name": "rsc-webpack-swc-fastify-demo",
-  "packageManager": "yarn@3.5.0",
   "scripts": {
     "start": "rm -rf dist && node ./scripts/build.js && node ./server/api.js"
   },
   "type": "module",
   "dependencies": {
-    "fastify": "^4.15.0",
-    "react": "18.3.0-next-1308e49a6-20230330",
-    "react-dom": "18.3.0-next-1308e49a6-20230330"
+    "fastify": "^4.25.2",
+    "react": "18.3.0-canary-c5b937576-20231219",
+    "react-dom": "18.3.0-canary-c5b937576-20231219"
   },
   "devDependencies": {
-    "@swc/core": "^1.3.53",
-    "@types/node": "~18.15.11",
-    "@types/react": "^18.0.38",
-    "@types/react-dom": "^18.0.11",
-    "react-server-dom-webpack": "18.3.0-next-1308e49a6-20230330",
+    "@swc/core": "^1.3.101",
+    "@types/node": "~20.10.5",
+    "@types/react": "^18.2.45",
+    "@types/react-dom": "^18.2.18",
+    "react-server-dom-webpack": "18.3.0-canary-c5b937576-20231219",
     "swc-loader": "^0.2.3",
-    "typescript": "^5.0.4",
-    "webpack": "^5.80.0",
+    "typescript": "^5.3.3",
+    "webpack": "^5.89.0",
     "webpack-node-externals": "^3.0.0"
   }
 }
