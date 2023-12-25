@@ -4,13 +4,32 @@ import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 import { createRequire } from 'node:module';
-import { renderToReadableStream } from 'react-server-dom-webpack/server.browser';
+import { finished } from "node:stream/promises";
+import ReactServerDOMWebpackServer from 'react-server-dom-webpack/server';
+
+const { renderToPipeableStream } = ReactServerDOMWebpackServer;
 
 const require = createRequire(import.meta.url);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = fileURLToPath(
   new URL('.', import.meta.url),
 );
+const clientComponentMap = JSON.parse(
+  await readFile(
+    resolve(
+      __dirname,
+      '../dist/react-client-manifest.json',
+    ),
+  ),
+);
+
+function renderReactTree(writable, component, props) {
+  const { pipe } = renderToPipeableStream(
+    createElement(component, props),
+    clientComponentMap,
+  );
+  pipe(writable);
+}
 
 const fastify = Fastify({
   logger: true,
@@ -31,26 +50,12 @@ fastify.get('/dist/*', async (request, reply) => {
   return reply.type('application/javascript').send(js);
 });
 
-fastify.get('/rsc', async (request, reply) => {
-  const ReactApp = await import('../dist/App.js');
-  const clientComponentMap = JSON.parse(
-    await readFile(
-      resolve(
-        __dirname,
-        '../dist/react-client-manifest.json',
-      ),
-    ),
-  );
-  const stream = renderToReadableStream(
-    createElement(ReactApp.default, {}),
-    clientComponentMap,
-  );
-  const buffers = [];
-  for await (const data of stream) {
-    buffers.push(data);
-  }
-  const finalBuffer = Buffer.concat(buffers);
-  return reply.type('text/x-component').send(finalBuffer);
+fastify.get('/rsc', (request, reply) => {
+  import('../dist/App.js').then((ReactAppDefault) => {
+    const ReactApp = ReactAppDefault.default;
+    reply.header("content-type", "application/octet-stream");
+    renderReactTree(reply.raw, ReactApp, {});
+  });
 });
 
 /**

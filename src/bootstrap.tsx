@@ -8,9 +8,8 @@ window.__webpack_require__ = async (id) => {
 };
 */
 
-const router = <Router />;
 const root = createRoot(document.getElementById('root'));
-root.render(router);
+root.render(<Router />);
 
 /*
 const domNode = document.getElementById('root');

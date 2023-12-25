@@ -1,7 +1,7 @@
 {
   "name": "rsc-webpack-swc-fastify-demo",
   "scripts": {
-    "start": "rm -rf dist && node ./scripts/build.js && node ./server/api.js"
+    "start": "rm -rf dist && node ./scripts/build.js && node --conditions react-server ./server/api.js"
   },
   "type": "module",
   "dependencies": {
